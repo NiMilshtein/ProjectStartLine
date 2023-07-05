@@ -9,6 +9,7 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 import { fetchPixabayData } from "./airbnbApi";
 import IconCarousel from "./IconCarousel";
 import Gallery from "./Gallery";
+import Navbar from "./Navbar";
 
 function Home() {
   const [searchResults, setSearchResults] = useState(undefined);
@@ -16,26 +17,7 @@ function Home() {
   const [search, setSearch] = useState(false);
   const [page, setPage] = useState(1);
 
-  const handleSearch = async () => {
-    console.log("Search triggered");
 
-    const capitalizedSearchValue =
-      searchValue.charAt(0).toUpperCase() + searchValue.slice(1);
-
-    const formattedSearchValue = capitalizedSearchValue.replace(/\s+/g, "+");
-
-    const searchParameters = {
-      q: formattedSearchValue,
-    };
-    console.log("Search parameters:", searchParameters);
-    setSearch(true);
-
-    const searchResults = await fetchPixabayData(searchParameters.q);
-    setSearchResults(searchResults);
-    setSearchValue("");
-    setSearch(false);
-    console.log("Search results:", searchResults);
-  };
 
   const handleIconClicked = async (icon) => {
     setSearch(true);
@@ -55,34 +37,7 @@ function Home() {
   };
   return (
     <>
-      <header className="header">
-        <div className="logo">
-          <img alt="" src={airbnb} />
-        </div>
-        <div className="search">
-          <input
-            type="text"
-            placeholder="find your place"
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleSearch();
-              }
-            }}
-          />
-          <SearchIcon className="gogle" onClick={handleSearch} />
-        </div>
-        <div className="host">
-          <p>Become a Modal</p>
-          <LanguageIcon className="globeIcon" />
-          <div className="user">
-            <MenuIcon />
-            <AccountCircleIcon />
-            <div className="notification-indicator">1</div>
-          </div>
-        </div>
-      </header>
+<Navbar setSearchResults={setSearchResults} />
       <IconCarousel onIconClicked={handleIconClicked} />
       <section className="packages" id="packages">
         <div className="box-container">
