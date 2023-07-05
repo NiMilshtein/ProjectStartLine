@@ -1,11 +1,11 @@
+// airbnbApi.js
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-const BACKEND_URL = 'https://backendproject.vercel.app';
 
 const fetchPixabayData = async (q) => {
   try {
-    const { data } = await axios.get(`${BACKEND_URL}/api/pixabay`, {
+    const { data } = await axios.get('/api/pixabay', {
       params: { q },
     });
     return data;
@@ -13,7 +13,6 @@ const fetchPixabayData = async (q) => {
     console.error('Error fetching data from Pixabay:', error);
   }
 };
-
 const useFetchData = (searchResults, q = 'Flowers') => {
   const [places, setPlaces] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -40,4 +39,6 @@ const useFetchData = (searchResults, q = 'Flowers') => {
   return { places, loading };
 };
 
-export { fetchPixabayData, useFetchData };
+export {
+  fetchPixabayData,useFetchData 
+};
